@@ -1,7 +1,48 @@
 MediaMon
 ========
 
-File monitor and auto-indexer for Synology NAS.
+File monitor and auto-indexer for Synology DiskStation NAS.
+
+I'm using this on a DS213j, but I expect it may work on other models as well.
+
+
+Usage
+-----
+
+1. Install Python from the DiskStation package manager.
+
+2. SSH into your DiskStation as root and install pyinotify::
+
+    wget https://pypi.python.org/packages/source/p/pyinotify/pyinotify-0.9.4.tar.gz
+    tar -xzvf pyinotify-0.9.4.tar.gz
+    cd pyinotify-0.9.4/
+    python setup.py install
+
+3. Copy ``mediamon.py`` to the DiskStation's ``/root/`` directory.
+
+4. Copy ``S99mediamon.sh`` to the DiskStation's ``/usr/syno/etc/rc.d/``
+   directory.
+
+5. Run ``/usr/syno/etc/rc.d/S99mediamon.sh start`` to start up the monitor.
+
+6. Add some media files to ``/volume1/photo``, ``/volume1/music``, or
+   ``/volume1/video``, and check the log at ``/var/log/mediamon.log`` to verify
+   that it's working. You should see a ``synoindex -a`` entry for each added
+   file.
+
+
+Caveats
+-------
+
+I've noticed I have to repeat steps 2-5 after any DSM upgrade. There may be a
+way to avoid this by placing files in some other location that isn't wiped out
+by DSM upgrades, but so far I haven't looked into it. I don't think
+``S99mediamon.sh`` would work to restart the monitor after reboot if placed
+anywhere else.
+
+
+Credits
+-------
 
 Based on `a blog post`_.
 
