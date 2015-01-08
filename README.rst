@@ -27,7 +27,7 @@ Usage
    directory (``scp S99mediamon.sh
    root@192.168.1.20:/usr/syno/etc/rc.d/``).
 
-5. SSH into the DiskStation again and run ``chmod 755 /usr/syno/etc/rc.d/``,
+5. SSH into the DiskStation again and run ``chmod 755 /usr/syno/etc/rc.d/S99mediamon.sh``,
    then ``/usr/syno/etc/rc.d/S99mediamon.sh start`` to start up the monitor.
 
 6. Add some media files to ``/volume1/photo``, ``/volume1/music``, or
