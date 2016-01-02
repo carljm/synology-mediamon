@@ -14,11 +14,9 @@ Usage
 2. SSH into your DiskStation as root (e.g. ``ssh root@192.168.1.20`` -- use the
    right IP address for your DiskStation) and install pyinotify::
 
-    cd /root/
-    wget https://pypi.python.org/packages/source/p/pyinotify/pyinotify-0.9.4.tar.gz
-    tar -xzvf pyinotify-0.9.4.tar.gz
-    cd pyinotify-0.9.4/
-    python setup.py install
+    python -m ensurepip
+    pip install pyinotify
+
 
 3. Copy ``mediamon.py`` to the DiskStation's ``/root/`` directory (``scp
    mediamon.py root@192.168.1.20:/root/``).
@@ -27,8 +25,9 @@ Usage
    directory (``scp S99mediamon.sh
    root@192.168.1.20:/usr/syno/etc/rc.d/``).
 
-5. SSH into the DiskStation again and run ``chmod 755 /usr/syno/etc/rc.d/S99mediamon.sh``,
-   then ``/usr/syno/etc/rc.d/S99mediamon.sh start`` to start up the monitor.
+5. SSH into the DiskStation again and run ``chmod 755
+   /usr/syno/etc/rc.d/S99mediamon.sh``, then
+   ``/usr/syno/etc/rc.d/S99mediamon.sh start`` to start up the monitor.
 
 6. Add some media files to ``/volume1/photo``, ``/volume1/music``, or
    ``/volume1/video``, and check the log at ``/var/log/mediamon.log`` to verify
