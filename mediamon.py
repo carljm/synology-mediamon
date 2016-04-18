@@ -124,9 +124,10 @@ wdd = wm.add_watch(
     mask,
     rec=True,
     auto_add=True,
+    exclude_filter=lambda p: '/@' in p
 )
 
 try:
     notifier.loop(daemonize=True, pid_file='/var/run/mediamon.pid')
-except pyinotify.NotifierError, err:
-    print >> sys.stderr, err
+except pyinotify.NotifierError as err:
+    log(str(err))

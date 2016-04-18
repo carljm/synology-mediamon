@@ -5,29 +5,31 @@ File monitor and auto-indexer for Synology DiskStation NAS.
 
 I'm using this on a DS213j, but I expect it may work on other models as well.
 
+Updated for DSM 6.0+. May still work on earlier DSM versions, but I can't vouch
+for that.
+
 
 Usage
 -----
 
-1. Install Python from the DiskStation package manager.
-
-2. SSH into your DiskStation as root (e.g. ``ssh root@192.168.1.20`` -- use the
-   right IP address for your DiskStation) and install pyinotify::
-
-    python -m ensurepip
-    pip install pyinotify
+1. Install Python3 from the DiskStation package manager.
 
 
-3. Copy ``mediamon.py`` to the DiskStation's ``/root/`` directory (``scp
-   mediamon.py root@192.168.1.20:/root/``).
+2. Copy ``mediamon.py`` and ``S99mediamon.sh`` to your admin user's homedir
+   (i.e. ``/volume1/homes/admin/``): ``scp *.{py,sh} admin@192.168.1.20:~``.
 
-4. Copy ``S99mediamon.sh`` to the DiskStation's ``/usr/syno/etc/rc.d/``
-   directory (``scp S99mediamon.sh
-   root@192.168.1.20:/usr/syno/etc/rc.d/``).
+3. SSH into your DiskStation as admin (e.g. ``ssh admin@192.168.1.20`` -- use
+   the right IP address for your DiskStation) and ``sudo su -`` to become the root user. This will require re-entering your admin user's password.
 
-5. SSH into the DiskStation again and run ``chmod 755
-   /usr/syno/etc/rc.d/S99mediamon.sh``, then
-   ``/usr/syno/etc/rc.d/S99mediamon.sh start`` to start up the monitor.
+4. Install pyinotify::
+
+    python3 -m ensurepip
+    /volume1/\@appstore/py3k/usr/local/bin/pip3 install pyinotify
+
+5. Copy ``S99mediamon.sh`` to the DiskStation's ``/usr/local/etc/rc.d/``
+   directory, with ``0755`` permissions: ``cp
+   /volume1/homes/admin/S99mediamon.sh /usr/local/etc/rc.d/ && chmod 755
+   /usr/local/etc/rc.d/S99mediamon.sh``.
 
 6. Add some media files to ``/volume1/photo``, ``/volume1/music``, or
    ``/volume1/video``, and check the log at ``/var/log/mediamon.log`` to verify
@@ -38,11 +40,12 @@ Usage
 Caveats
 -------
 
-I've noticed I have to repeat steps 2-5 after any DSM upgrade. There may be a
-way to avoid this by placing files in some other location that isn't wiped out
-by DSM upgrades, but so far I haven't looked into it. I don't think
-``S99mediamon.sh`` would work to restart the monitor after reboot if placed
-anywhere else.
+If you have a lot of files/directories in some watched volumes, you may see "No
+space on device" errors from pyinotify. This doesn't actually have to do with
+space on the drive, it means you're hitting the watched-files limit. You can
+increase this limit by running (as root): ``echo
+fs.inotify.max_user_watches=100000 | sudo tee -a /etc/sysctl.conf; sudo sysctl
+-p``.
 
 Suggestions, improvements, bug reports or pull requests welcome!
 
