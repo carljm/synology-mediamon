@@ -44,6 +44,7 @@ allowed_exts = {
     "mp4",
     "avi",
     "m4v",
+    "mkv",
 }
 
 wm = pyinotify.WatchManager()
