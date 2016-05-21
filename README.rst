@@ -19,7 +19,8 @@ Usage
    (i.e. ``/volume1/homes/admin/``): ``scp *.{py,sh} admin@192.168.1.20:~``.
 
 3. SSH into your DiskStation as admin (e.g. ``ssh admin@192.168.1.20`` -- use
-   the right IP address for your DiskStation) and ``sudo su -`` to become the root user. This will require re-entering your admin user's password.
+   the right IP address for your DiskStation) and ``sudo su -`` to become the
+   root user. This will require re-entering your admin user's password.
 
 4. Install pyinotify::
 
@@ -30,6 +31,10 @@ Usage
    directory, with ``0755`` permissions: ``cp
    /volume1/homes/admin/S99mediamon.sh /usr/local/etc/rc.d/ && chmod 755
    /usr/local/etc/rc.d/S99mediamon.sh``.
+   
+6. Restart your Synology (if you want to verify that the mediamon service will
+   start up automatically in the future), or start it up yourself:
+   ``/usr/local/etc/rc.d/S99mediamon.sh start``.
 
 6. Add some media files to ``/volume1/photo``, ``/volume1/music``, or
    ``/volume1/video``, and check the log at ``/var/log/mediamon.log`` to verify
