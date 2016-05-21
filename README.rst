@@ -36,7 +36,7 @@ Usage
    start up automatically in the future), or start it up yourself:
    ``/usr/local/etc/rc.d/S99mediamon.sh start``.
 
-6. Add some media files to ``/volume1/photo``, ``/volume1/music``, or
+7. Add some media files to ``/volume1/photo``, ``/volume1/music``, or
    ``/volume1/video``, and check the log at ``/var/log/mediamon.log`` to verify
    that it's working. You should see a ``synoindex -a`` entry for each added
    file.
