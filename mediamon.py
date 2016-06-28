@@ -54,7 +54,8 @@ mask = (
     pyinotify.IN_DELETE |
     pyinotify.IN_CREATE |
     pyinotify.IN_MOVED_TO |
-    pyinotify.IN_MOVED_FROM
+    pyinotify.IN_MOVED_FROM |
+    pyinotify.IN_MOVE_SELF
 )
 
 
@@ -93,6 +94,10 @@ class EventHandler(pyinotify.ProcessEvent):
     def process_IN_MODIFY(self, event):
         if self.is_allowed_path(event.pathname, event.dir):
             self.modified_files.add(event.pathname)
+
+    def process_IN_MOVE_SELF(self, event):
+    #       if self.is_allowed_path(event.pathname, event.dir):
+        self.modified_files.add(event.pathname)
 
     def process_IN_CLOSE_WRITE(self, event):
         # ignore close_write unlesss the file has previously been modified.
