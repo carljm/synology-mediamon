@@ -25,7 +25,10 @@ Usage
 4. Install pyinotify::
 
     python3 -m ensurepip
-    /volume1/\@appstore/py3k/usr/local/bin/pip3 install pyinotify
+    python3 -m pip install pyinotify
+
+   Test that pyinotify works:
+    python3 -m pyinotify -v /tmp
 
 5. Copy ``S99mediamon.sh`` to the DiskStation's ``/usr/local/etc/rc.d/``
    directory, with ``0755`` permissions: ``cp
