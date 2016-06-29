@@ -96,7 +96,6 @@ class EventHandler(pyinotify.ProcessEvent):
             self.modified_files.add(event.pathname)
 
     def process_IN_MOVE_SELF(self, event):
-    #       if self.is_allowed_path(event.pathname, event.dir):
         self.modified_files.add(event.pathname)
 
     def process_IN_CLOSE_WRITE(self, event):
